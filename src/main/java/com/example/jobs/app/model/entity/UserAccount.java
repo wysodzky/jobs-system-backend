@@ -1,7 +1,7 @@
 package com.example.jobs.app.model.entity;
 
 
-import lombok.Data;
+import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -10,7 +10,10 @@ import java.util.Set;
 
 @Entity
 @Table(name = "user")
-@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter
+@Setter
 public class UserAccount implements Serializable {
 
     @Id
@@ -22,7 +25,9 @@ public class UserAccount implements Serializable {
 
     private String password;
 
-    @OneToMany
+    private String email;
+
+    @OneToMany(mappedBy = "userAccount",fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Set<Authority> authorities = new HashSet<>();
 
 

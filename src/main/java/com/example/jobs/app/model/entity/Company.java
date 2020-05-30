@@ -7,22 +7,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "person")
+@Table(name = "company")
 @Data
-public class Person {
-
+public class Company {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    private String firstName;
-    private String lastName;
-    private String phoneNumber;
+    private String name;
 
-    @OneToMany(mappedBy = "person",cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "company",cascade = CascadeType.ALL)
     private List<JobOffer> jobOffers = new ArrayList<>();
 
     @OneToOne
     private UserAccount userAccount;
-
 }

@@ -38,7 +38,7 @@ public class UserAccountService {
         userAccount.setUsername(userDto.getUsername());
         userAccount.setPassword(bCryptPasswordEncoder.encode(userDto.getPassword()));
         Authority authority = new Authority();
-        authority.setName(AuthorityType.ROLE_USER);
+        authority.setRole(AuthorityType.ROLE_USER);
         userAccount.setAuthorities(new HashSet<Authority>() {{add(authority);}});
         userAccountRepository.save(userAccount);
     }

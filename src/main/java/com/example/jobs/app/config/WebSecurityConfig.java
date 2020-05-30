@@ -63,6 +63,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .frameOptions().disable()
                 .and()
                 .authorizeRequests().antMatchers("/authenticate","/h2-console/**").permitAll().
+                antMatchers("/dashboard").hasAuthority("ROLE_ADMIN").
                         anyRequest().authenticated().and().
                         exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint).and().sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
