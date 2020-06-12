@@ -20,11 +20,11 @@ public class JobOffer {
     private List<String> requirements = new ArrayList<>();
     @ElementCollection
     private List<String> benefits = new ArrayList<>();
+    private String workType;
     private String workHours;
+    private String salary;
 
     @ManyToOne
     private Person person;
 
-    @ManyToOne
-    private Company company;
 }
