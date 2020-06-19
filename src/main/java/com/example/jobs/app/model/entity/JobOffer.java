@@ -1,6 +1,6 @@
 package com.example.jobs.app.model.entity;
 
-import lombok.Data;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -8,7 +8,10 @@ import java.util.List;
 
 @Entity
 @Table(name = "job_offer")
-@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter
+@Setter
 public class JobOffer {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

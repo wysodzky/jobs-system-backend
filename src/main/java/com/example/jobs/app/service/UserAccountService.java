@@ -42,6 +42,10 @@ public class UserAccountService {
        return new User(userAccount.getUsername(),userAccount.getPassword(),new ArrayList<>(userAccount.getAuthorities()));
     }
 
+    public UserAccount loadUserAccountByUsername(String username) throws UserNotFoundException {
+       return userAccountRepository.getByUsername(username).orElseThrow(UserNotFoundException::new);
+    }
+
     @Transactional
     public void saveUser(UserDto userDto) {
 
