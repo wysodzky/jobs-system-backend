@@ -22,10 +22,7 @@ public class Person {
     private String lastName;
     private String phoneNumber;
 
-    @OneToMany(mappedBy = "person",cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL)
     private List<JobOffer> jobOffers = new ArrayList<>();
-
-    @OneToOne
-    private UserAccount userAccount;
 
 }

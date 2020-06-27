@@ -30,5 +30,8 @@ public class UserAccount implements Serializable {
     @OneToMany(mappedBy = "userAccount",fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Set<Authority> authorities = new HashSet<>();
 
+    @OneToOne
+    private Person person;
+
 
 }

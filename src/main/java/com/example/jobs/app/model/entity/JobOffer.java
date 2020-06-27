@@ -26,8 +26,4 @@ public class JobOffer {
     private String workType;
     private String workHours;
     private String salary;
-
-    @ManyToOne
-    private Person person;
-
 }

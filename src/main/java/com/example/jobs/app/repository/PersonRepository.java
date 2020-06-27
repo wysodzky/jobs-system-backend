@@ -7,6 +7,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface PersonRepository extends JpaRepository<Person,Long> {
-    @Query(value = "SELECT * FROM Person WHERE user_account_id=?1", nativeQuery = true)
-    Person getByUserAccount(Long id);
+    @Query(value = "SELECT person_id FROM person_job_offers WHERE job_offers_id=?1", nativeQuery = true)
+    Long getPersonIdByJobOfferId(Long id);
 }

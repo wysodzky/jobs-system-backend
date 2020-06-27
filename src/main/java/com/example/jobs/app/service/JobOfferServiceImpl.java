@@ -3,16 +3,18 @@ package com.example.jobs.app.service;
 import com.example.jobs.app.api.JobOfferService;
 import com.example.jobs.app.exception.UserNotFoundException;
 import com.example.jobs.app.model.dto.JobOfferDto;
+import com.example.jobs.app.model.dto.JobOfferDtoDetails;
 import com.example.jobs.app.model.entity.JobOffer;
 import com.example.jobs.app.model.entity.Person;
 import com.example.jobs.app.model.entity.UserAccount;
 import com.example.jobs.app.repository.JobOfferRepository;
 import com.example.jobs.app.repository.PersonRepository;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 @Component
-public class JobOfferServiceImpl extends AbstractServiceImpl<JobOffer> implements JobOfferService {
+public class JobOfferServiceImpl implements JobOfferService {
 
     private JobOfferRepository jobOfferRepository;
     private UserAccountService userAccountService;
@@ -28,10 +30,9 @@ public class JobOfferServiceImpl extends AbstractServiceImpl<JobOffer> implement
     @Override
     public void createJobOffer(JobOfferDto jobOfferDto) throws UserNotFoundException {
         UserAccount userAccount = userAccountService.loadUserAccountByUsername(jobOfferDto.getUsername());
-        Person person = personRepository.getByUserAccount(userAccount.getId());
+        Person person = userAccount.getPerson();
         JobOffer jobOffer = new JobOffer();
         jobOffer.setDescription(jobOfferDto.getDescription());
-        jobOffer.setPerson(person);
         jobOffer.setBenefits(jobOfferDto.getBenefits());
         jobOffer.setRequirements(jobOfferDto.getRequirements());
         jobOffer.setSalary(jobOfferDto.getSalary());
@@ -41,5 +42,36 @@ public class JobOfferServiceImpl extends AbstractServiceImpl<JobOffer> implement
         jobOfferRepository.save(jobOffer);
         person.getJobOffers().add(jobOffer);
         personRepository.save(person);
+    }
+
+    @Override
+    public List<JobOffer> getAll() {
+        return jobOfferRepository.findAll();
+    }
+
+    @Override
+    public JobOfferDtoDetails getJobOffer(Long id) {
+        JobOffer jobOffer = jobOfferRepository.getOne(id);
+        JobOfferDtoDetails jobOfferDtoDetails = new JobOfferDtoDetails();
+        jobOfferDtoDetails.setTitle(jobOffer.getTitle());
+        jobOfferDtoDetails.setDescription(jobOffer.getDescription());
+        jobOfferDtoDetails.setBenefits(jobOffer.getBenefits());
+        jobOfferDtoDetails.setSalary(jobOffer.getSalary());
+        jobOfferDtoDetails.setRequirements(jobOffer.getRequirements());
+        jobOfferDtoDetails.setWorkHours(jobOffer.getWorkHours());
+        jobOfferDtoDetails.setWorkType(jobOffer.getWorkType());
+
+        Long personId = personRepository.getPersonIdByJobOfferId(id);
+        Person person = personRepository.getOne(personId);
+        jobOfferDtoDetails.setFirstName(person.getFirstName());
+        jobOfferDtoDetails.setLastName(person.getLastName());
+        return jobOfferDtoDetails;
+    }
+
+    @Override
+    public List<JobOffer> getUserJobOffers(String username) throws UserNotFoundException {
+        UserAccount userAccount = userAccountService.loadUserAccountByUsername(username);
+        Person person = userAccount.getPerson();
+        return person.getJobOffers();
     }
 }

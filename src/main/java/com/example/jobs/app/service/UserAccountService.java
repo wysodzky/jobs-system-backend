@@ -70,7 +70,7 @@ public class UserAccountService {
 
         userAccountRepository.save(userAccount);
 
-        person.setUserAccount(userAccount);
+        userAccount.setPerson(person);
 
         personRepository.save(person);
 
