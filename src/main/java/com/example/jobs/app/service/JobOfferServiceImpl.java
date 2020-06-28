@@ -74,4 +74,28 @@ public class JobOfferServiceImpl implements JobOfferService {
         Person person = userAccount.getPerson();
         return person.getJobOffers();
     }
+
+    @Override
+    public void deleteJobOffer(Long id) {
+        Long personId = personRepository.getPersonIdByJobOfferId(id);
+        Person person = personRepository.getOne(personId);
+
+        List<JobOffer> jobList = person.getJobOffers();
+        JobOffer jobToRemove = null;
+
+        for (JobOffer jobOffer : jobList) {
+            if (jobOffer.getId().equals(id)) {
+                jobToRemove = jobOffer;
+            }
+        }
+
+        if (jobToRemove != null) {
+            jobList.remove(jobToRemove);
+        }
+        person.setJobOffers(jobList);
+
+        personRepository.save(person);
+
+        jobOfferRepository.deleteById(id);
+    }
 }

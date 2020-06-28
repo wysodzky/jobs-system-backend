@@ -14,4 +14,5 @@ public interface JobOfferService {
     List<JobOffer> getAll();
     JobOfferDtoDetails getJobOffer(Long id);
     List<JobOffer> getUserJobOffers(String username) throws UserNotFoundException;
+    void deleteJobOffer(Long id);
 }

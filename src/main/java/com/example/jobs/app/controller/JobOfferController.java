@@ -56,4 +56,11 @@ public class JobOfferController {
         }
     }
 
+    @DeleteMapping("/{id}")
+    @ResponseBody
+    public void deleteJobOffer(@PathVariable Long id) {
+        jobOfferService.deleteJobOffer(id);
+    }
+
+
 }
