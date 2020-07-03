@@ -63,6 +63,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .frameOptions().disable()
                 .and()
                 .authorizeRequests().antMatchers("/authenticate","/h2-console/**").permitAll().
+                antMatchers("/jobs").permitAll().
                 antMatchers("/dashboard").hasAuthority("ROLE_ADMIN").
                 antMatchers("/users/**").permitAll().
                         anyRequest().authenticated().and().
