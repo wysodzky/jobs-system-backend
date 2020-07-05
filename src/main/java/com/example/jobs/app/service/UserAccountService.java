@@ -46,6 +46,10 @@ public class UserAccountService {
        return userAccountRepository.getByUsername(username).orElseThrow(UserNotFoundException::new);
     }
 
+    public UserAccount loadUserByPersonId(Long personId) {
+        return userAccountRepository.getUserAccountByPersonId(personId);
+    }
+
     @Transactional
     public void saveUser(UserDto userDto) {
 

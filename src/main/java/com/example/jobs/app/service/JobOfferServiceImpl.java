@@ -65,6 +65,10 @@ public class JobOfferServiceImpl implements JobOfferService {
         Person person = personRepository.getOne(personId);
         jobOfferDtoDetails.setFirstName(person.getFirstName());
         jobOfferDtoDetails.setLastName(person.getLastName());
+        jobOfferDtoDetails.setPhoneNumber(person.getPhoneNumber());
+
+        UserAccount userAccount = userAccountService.loadUserByPersonId(personId);
+        jobOfferDtoDetails.setEmail(userAccount.getEmail());
         return jobOfferDtoDetails;
     }
 

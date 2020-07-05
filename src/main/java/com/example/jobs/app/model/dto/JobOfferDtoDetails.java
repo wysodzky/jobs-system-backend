@@ -11,4 +11,6 @@ import lombok.NoArgsConstructor;
 public class JobOfferDtoDetails extends JobOfferDto {
     private String firstName;
     private String lastName;
+    private String phoneNumber;
+    private String email;
 }
