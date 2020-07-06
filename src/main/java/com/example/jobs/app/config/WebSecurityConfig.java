@@ -64,7 +64,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .authorizeRequests().antMatchers("/authenticate","/h2-console/**").permitAll().
                 antMatchers("/jobs").permitAll().
-                antMatchers("/dashboard").hasAuthority("ROLE_ADMIN").
+                antMatchers("/jobs/**").hasAnyAuthority("ROLE_ADMIN","ROLE_USER").
                 antMatchers("/users/**").permitAll().
                         anyRequest().authenticated().and().
                         exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint).and().sessionManagement()
